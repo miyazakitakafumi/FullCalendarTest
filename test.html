@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./fullcalendar-3.4.0/fullcalendar.css">
+        <script src="./fullcalendar-3.4.0/lib/jquery.min.js"></script>
+        <script src="./fullcalendar-3.4.0/lib/jquery-ui.min.js"></script>
+        <script src="./fullcalendar-3.4.0/lib/moment.min.js"></script>
+        <script src="./fullcalendar-3.4.0/fullcalendar.js"></script>
+    </head>
+    <body>
+        <div id='calendar'></div>
+        <script>
+            $(function(){
+               
+                $('#calendar').fullCalendar({
+                    timeFormat: 'HH:mm',
+                    events: [
+                        {
+                            title: 'test event',
+                            start: '2017-05-19T16:00',
+                            end: '2017-05-19T16:30'
+                        },
+                    ],
+                    eventAfterRender: function(event, $el, view) {
+                        var formattedTime = $.fullCalendar.formatRange(event.start, event.end, 'HH:mm');
+                        // If FullCalendar has removed the title div, then add the title to the time div like FullCalendar would do
+                        var end = moment(event.end).format("HH:mm");
+                        $el.find('.fc-content').append('<br />');
+                        $el.find('.fc-content').append('<span class="fc-time">&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span><br />');
+                        $el.find('.fc-content').append('<span class="fc-time">' + end + '</span>');
+                        $el.find('.fc-title').remove();
+                        
+                    }
+                });
+                
+            });
+        </script>
+    </body>
+</html>
